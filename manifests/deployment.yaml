@@ -1,0 +1,27 @@
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: configmap-test
+spec:
+  selector:
+    matchLabels:
+      app: configmap-test
+  template:
+    metadata:
+      name: configmap-test
+      labels:
+        app: configmap-test
+    spec:
+      containers:
+        - name: configmap-test
+          image: registry.hq.dancysoft.com/watcher:1
+          args: [/config/config.txt]
+          imagePullPolicy: Always
+          volumeMounts:
+            - name: configmap
+              mountPath: /config
+      volumes:
+        - name: configmap
+          configMap:
+            name: configmap-test

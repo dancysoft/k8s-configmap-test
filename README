@@ -1,0 +1,22 @@
+This repo demonstrates how updates to a ConfigMaps are reflected
+within a pod.
+
+Assuming your ~/.kube/config points to a working k8s cluster:
+
+* Edit Makefile and update the registry mentioned in the IMAGE
+  variable.  Use a registry that you can push to and which your k8s
+  cluster can pull from.
+
+* Run 'make'.  This will build a container image for a program which
+  watches for and reports changes to a file.  The image is tagged and
+  pushed to a registry.  Then Deployment and ConfigMap resources are
+  created.
+
+* Examine the logs for the configmap-test pod.
+
+* Update the configmap by editing manifests/configmap.yaml and editing
+  the text for the config.txt entry.  Save and run 'make' again.
+
+* Monitor the logs for the configmap-test pod and eventually you will
+  see that it notices the updated file from the configmap.
+
